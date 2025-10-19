@@ -14,7 +14,9 @@ func curryAdd(f func(int, int) int, x int) func(y int) int {
 }
 
 func main() {
-	curryAddThree := curryAdd(add, 3)
-	fmt.Println("curryAddThree add 5 ->", curryAddThree(5))
-	fmt.Println("curryAddThree add 11 ->", curryAddThree(11))
+	add3 := curryAdd(add,3)
+	result := curryAdd(add, 3)(5)
+	
+	fmt.Println("Result of curryAdd(add,3)(5) ->", result)
+	fmt.Println("result of add3(12) ->", add3(12))
 }
