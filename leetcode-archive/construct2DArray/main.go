@@ -5,19 +5,19 @@ import (
 	"fmt"
 )
 
-func construct2DArray(original []int, r int, c int) [][]int {
-	if len(original) != r*c {
+func construct2DArray(original []int, m int, n int) [][]int {
+	if len(original) != m*n {
 		return [][]int{}
 	}
 
-	result := make([][]int, r)
+	result := make([][]int, m)
 	for i := range result {
-		result[i] = make([]int, c)
+		result[i] = make([]int, n)
 	}
 
 	for i := 0; i < len(original); i++ {
-		row := i / c
-		col := i % c
+		row := i / n
+		col := i % n
 		result[row][col] = original[i]
 	}
 
