@@ -9,28 +9,22 @@ func mergeAlternately(word1 string, word2 string) string {
 		return ""
 	}
 
-	minLen := len(word1)
-	if len(word2) < minLen {
-		minLen = len(word2)
-	}
+	wLen1 := len(word1)
+	wLen2 := len(word2)
 
 	sword1 := []byte(word1)
 	sword2 := []byte(word2)
 
 	result := make([]byte, 0)
 
-	for i:=0; i<minLen; i++ {
-		result = append(result, sword1[i])
-		result = append(result, sword2[i])
-	}
+	for i,j := 0, 0; i<wLen1 || j<wLen2; i,j = i+1, j+1 {
 
-	if len(word1) > minLen {
-		for i:=minLen; i<len(word1); i++ {
+		if i < wLen1 {
 			result = append(result, sword1[i])
 		}
-	} else if len(word2) > minLen {
-		for i:=minLen; i<len(word2); i++ {
-			result = append(result, sword2[i])
+
+		if j < wLen2 {
+			result = append(result, sword2[j])
 		}
 	}
 
