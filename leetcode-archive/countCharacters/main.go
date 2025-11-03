@@ -4,38 +4,34 @@ import (
 	"fmt"
 )
 
-func canBeFormed(word string, chars string) bool {
-
-	charsCount := make(map[rune]int)
-	for _, r := range chars {
-		charsCount[rune(r)]++
-	}
-
-	for _, r := range word {
-		if val, found := charsCount[r]; found && val > 0 {
-			charsCount[r]--
-		} else {
-			return false
-		}
-	}
-	return true
-}
-
 func countCharacters(words []string, chars string) int {
 	if len(words) < 1 {
 		return 0
 	}
 
-	wLen := len(words)
-	sum := 0
+	charsCount := make([]int, 26)
 
-	for i:=0; i<wLen; i++ {
-		word := words[i]
-		if canBeFormed(word, chars) {
+	for _, r := range chars {
+		charsCount[int(r - 'a')]++
+	}
+
+	currentCharsCount := make([]int, 26)
+	sum := 0
+	for _, word := range words {
+		copy(currentCharsCount, charsCount)
+		isValid := true
+
+		for _, r := range word {
+			currentCharsCount[r - 'a']--
+			if (currentCharsCount[r - 'a'] < 0) {
+				isValid = false
+				break
+			}
+		}
+		if isValid {
 			sum += len(word)
 		}
 	}
-
     return sum
 }
 
