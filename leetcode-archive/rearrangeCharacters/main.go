@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 func rearrangeCharacters(s string, target string) int {
@@ -22,23 +21,16 @@ func rearrangeCharacters(s string, target string) int {
 		tCount[r - 'a']++
 	}
 
-	minFloor := 0
-	min := 0
+	nCopy := 100
 	for _, r := range target {
-		x := float64(tCount[r - 'a'])
-		y := float64(sCount[r - 'a'])
-        if y == 0 {
-            min = 0
-            break
-        }
-		minFloor = int(math.Floor(y/x))
-		if min == 0 {
-			min = minFloor
-		} else {
-			min = int(math.Min(float64(min),float64(minFloor)))
+		x := float64(sCount[r - 'a'])
+		y := float64(tCount[r - 'a'])
+		a := int(x / y)
+		if a < nCopy {
+			nCopy = a
 		}
 	}
-   return min 
+   return nCopy 
 }
 
 func main() {
