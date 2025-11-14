@@ -5,32 +5,24 @@ import (
 	"strings"
 )
 
-func sumAndMod10(s string) string {
-	if (len(s) < 2) {
-		return s
-	}
-
-	var builder strings.Builder
-	builder.Grow(len(s) - 1)
-
-	for i:=0; i<len(s) - 1; i++ {
-		d1 := s[i] - '0'
-		d2 := s[i+1] - '0'
-		val := (int(d1) + int(d2)) % 10
-		builder.WriteByte(byte(val) + '0')
-	}
-
-	return builder.String()
-}
-
 func hasSameDigits(s string) bool {
-	
-	resultString := sumAndMod10(s)
-	for len(resultString) > 2 {
-		resultString = sumAndMod10(resultString)
+	if len(s) < 2 {
+		return false
 	}
 
-	return (resultString[0] == resultString[1])
+	for len(s) > 2 {
+		var builder strings.Builder
+		builder.Grow(len(s) - 1) // allocate enough space
+
+		for i := 1; i < len(s); i++ {
+			sum := (s[i-1]-'0' + s[i]-'0') % 10
+			builder.WriteByte(sum + '0')
+		}
+
+		s = builder.String()
+	}
+
+	return s[0] == s[1]
 }
 
 func main() {
