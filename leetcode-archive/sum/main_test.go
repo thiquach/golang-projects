@@ -2,14 +2,11 @@ package main
 
 import "testing"
 
-// Testing Sum function in main.go
-// main_test.go contains tests for code in main.go
-// functions in main.go to be capitalised and exported for visibility in main_test.go
 func TestSum(t *testing.T) {
-	result := Sum(2, 2)
-	expected := 4
+	got := sum(2, 5)
+	expected := 7
 
-	if result != expected {
-		t.Errorf("expected '%d' but got '%d'", expected, result)
+	if got != expected {
+		t.Errorf("expected '%d' but got '%d'", expected, got)
 	}
 }
