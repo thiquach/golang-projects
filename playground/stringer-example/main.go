@@ -1,0 +1,20 @@
+package main
+
+import "fmt"
+
+type IPAddr [4]byte
+
+// Add a "String() string" method to IPAddr.
+func (sip IPAddr) String() string {
+	return fmt.Sprintf("(%v %v %v %v)", sip[0], sip[1], sip[2], sip[3])
+}
+
+func main() {
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
+}
