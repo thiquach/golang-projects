@@ -1,30 +1,33 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"math"
+	"time"
 )
 
-// Finds square root of x using Newton's method
-func Sqrt(x float64) (float64, error) {
-	var z float64
-	var a float64
+// error is of type built-in interface
+// type error interface {
+//     Error() string
+// }
 
-	if x == 0 || x < 0 {
-		return x, errors.New("invalid value")
-	}
+type MyError struct {
+	When time.Time
+	What string
+}
 
-	z = float64(1)
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v, %s", e.When, e.What)
+}
 
-	for math.Abs(float64(x-z*z)) > 0.001 {
-		a = float64(z*z-x) / float64(2*z)
-		z -= a
-	}
-	return z, nil
+func run() error {
+	return &MyError{
+		time.Now(),
+		"it didn't work"}
 }
 
 func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(Sqrt(-2))
+	err := run()
+	if err != nil {
+		fmt.Println(err)
+	}
 }
